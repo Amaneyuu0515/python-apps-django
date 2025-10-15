@@ -1,0 +1,105 @@
+body {
+    background-color: #eef4fa;
+    font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    margin: 40px;
+  }
+  
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  .title {
+    font-size: 2em;
+    color: #001f7f;
+    font-weight: bold;
+  }
+  
+  .subtitle {
+    color: #117711;
+    font-weight: bold;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid #999;
+    margin: 15px 0;
+  }
+  
+  /* 新規作成ボタン */
+  .btn-new {
+    display: inline-block;
+    background-color: #880000;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .btn-new:hover {
+    background-color: #aa0000;
+  }
+  
+  /* 編集リンク */
+  .edit-link {
+    color: #880000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .edit-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* メモ一覧 */
+  .memo-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  }
+  
+  .memo-title {
+    font-size: 1.1em;
+  }
+  
+  /* 編集画面 */
+  .back-link {
+    color: #880000;
+    text-decoration: none;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  .edit-form label {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .edit-form input[type="text"],
+  .edit-form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+  
+  .btn-save {
+    background-color: #880000;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .btn-save:hover {
+    background-color: #aa0000;
+  }
+  

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>TODOアプリ</title>
+    <link rel="stylesheet" href="{% static 'work09/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>TODOアプリ</h1>
+
+        <!-- 新しいタスク追加 -->
+        <h2>新しいタスクを追加</h2>
+        <form method="POST" class="todo-form">
+            {% csrf_token %}
+            <label for="id_title">タスク名:</label>
+            {{ form.title }}
+
+            <label for="id_due_date">期限日:</label>
+            {{ form.due_date }}
+
+            <button type="submit">登録</button>
+        </form>
+
+        <!-- タスク一覧 -->
+        <h2>TODO一覧</h2>
+
+        {% if todos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>完了状態</th>
+                    <th>タスク名</th>
+                    <th>期限日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    {% if todo.is_completed %}
+                        <tr class="status-done">
+                            <td>✅ 完了</td>
+                            <td><del>{{ todo.title }}</del></td>
+                            <td>
+                                {% if todo.due_date %}
+                                    {{ todo.due_date }}
+                                {% else %}
+                                    未設定
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'work09:todo_update' todo.id %}" class="btn action-btn btn-revert">編集</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        {% if todo.due_date and todo.due_date < today %}
+                            <tr class="status-overdue">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                            <td>⏳ 未完了</td>
+                            <td>{{ todo.title }}</td>
+                            <td>
+                                {% if todo.due_date %}
+                                    {{ todo.due_date }}
+                                {% else %}
+                                    未設定
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'work09:todo_update' todo.id %}" class="btn action-btn btn-complete">編集</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>タスクはまだありません。</p>
+        {% endif %}
+    </div>
+</body>
+</html>

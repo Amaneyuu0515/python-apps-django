@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>メモ帳アプリ - 編集</title>
+  <link rel="stylesheet" href="{% static 'work08/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">メモ帳アプリ - 編集</h1>
+
+    <a href="{% url 'work08:list' %}" class="back-link">メモ一覧に戻る</a>
+
+    <hr>
+
+    <h2 class="subtitle">メモ編集</h2>
+
+    <form method="post" class="edit-form">
+      {% csrf_token %}
+      <label for="title">タイトル:</label><br>
+      <input type="text" id="title" name="title" value="{{ memo.title }}"><br><br>
+
+      <label for="content">内容:</label><br>
+      <textarea id="content" name="content" rows="10">{{ memo.content }}</textarea><br><br>
+
+      <button type="submit" class="btn-save">保存</button>
+    </form>
+  </div>
+</body>
+</html>
