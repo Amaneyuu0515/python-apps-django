@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "work07",  # 新しく追加するアプリ
     "work08",  # 新しく追加するアプリ
     "work09",  # 新しく追加するアプリ
+    "work10",  # 新しく追加するアプリ
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,11 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation."
         "NumericPasswordValidator",
     },
+    {
+        'NAME': 'django.contrib.auth.password_validation.'
+        'MinimumLengthValidator',
+        'OPTIONS': {'min_length': 4},
+    },
 ]
 
 
@@ -129,3 +135,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+LOGIN_REDIRECT_URL = '/work10/'      # ログイン後にTODO一覧へリダイレクト
+LOGOUT_REDIRECT_URL = '/work10/'     # ログアウト後もTODO一覧へ戻す

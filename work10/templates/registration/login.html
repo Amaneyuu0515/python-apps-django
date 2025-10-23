@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="max-width:400px;margin:auto;">
+  <h2>ログイン</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ログイン</button>
+  </form>
+  <p>アカウントがない方は <a href="{% url 'work10:signup' %}">新規登録</a></p>
+</div>
+{% endblock %}

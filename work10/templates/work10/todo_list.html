@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}TODO一覧{% endblock %}
+{% block content %}
+<div class="container" style="max-width: 900px;">
+  <h2>TODO一覧</h2>
+
+  <div style="margin-bottom:20px;">
+    表示：
+    <button class="btn">全て</button>
+    <button class="btn-secondary">未完了のみ</button>
+    <button class="btn-secondary">完了済のみ</button>
+  </div>
+
+  <p>現在の表示: 全て | ソート: 登録日 (降順)</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>完了状態</th>
+        <th>タスク名</th>
+        <th>作成者</th>
+        <th>期限日</th>
+        <th>登録日</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in todos %}
+      <tr>
+        <td>{% if todo.completed %}完了{% else %}未完了{% endif %}</td>
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.user.username }}</td>
+        <td>{% if todo.due_date %}{{ todo.due_date|date:"M. d, Y" }}{% else %}未設定{% endif %}</td>
+        <td>{{ todo.created_at|default:"-" }}</td>
+        <td>
+          {% if todo.user == user %}
+            {% if todo.completed %}
+              <a href="#" class="btn-secondary">未完了に戻す</a>
+            {% endif %}
+            <a href="{% url 'work10:todo_delete' todo.pk %}" class="btn-danger">削除</a>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">TODOがありません。</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

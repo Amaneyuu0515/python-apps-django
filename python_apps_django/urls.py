@@ -25,4 +25,6 @@ urlpatterns = [
     path("work07/", include('work07.urls')),  # 新しく追加するアプリのurls.py
     path("work08/", include('work08.urls')),  # 新しく追加するアプリのurls.py
     path("work09/", include('work09.urls')),  # 新しく追加するアプリのurls.py
+    path("work10/", include('work10.urls')),  # 新しく追加するアプリのurls.py
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

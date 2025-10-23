@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="max-width:600px;">
+  <h2>TODO編集</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">保存</button>
+    <a href="{% url 'work10:todo_list' %}" class="btn-cancel">キャンセル</a>
+  </form>
+</div>
+{% endblock %}

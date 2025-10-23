@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="max-width:400px;margin:auto;">
+  <h2>新規登録</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">登録</button>
+  </form>
+  <p>すでに登録済みの方は <a href="{% url 'login' %}">ログイン</a></p>
+</div>
+{% endblock %}

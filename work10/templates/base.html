@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}TODOアプリ{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'work10/style.css' %}">
+  <style>
+    header {
+      background-color: #2979ff;
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    header a:hover { text-decoration: underline; }
+    .nav-right { display: flex; align-items: center; }
+    .username { margin-right: 10px; }
+    .btn-danger {
+      background-color: #ff5252;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-danger:hover { background-color: #e53935; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><a href="{% url 'work10:todo_list' %}">🏠 TODOアプリ</a></div>
+    <div class="nav-right">
+      {% if user.is_authenticated %}
+        <span class="username">ようこそ、{{ user.username }} さん</span>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-danger">ログアウト</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">ログイン</a> /
+        <a href="{% url 'work10:signup' %}">新規登録</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
