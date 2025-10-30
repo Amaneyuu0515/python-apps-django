@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container" style="max-width:400px;margin:auto;">
+<div class="container" style="max-width: 500px;">
   <h2>新規登録</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">登録</button>
+    <button type="submit" class="btn">登録</button>
   </form>
-  <p>すでに登録済みの方は <a href="{% url 'login' %}">ログイン</a></p>
+  <p>すでにアカウントをお持ちですか？
+    <a href="{% url 'login' %}">ログインはこちら</a>
+  </p>
 </div>
 {% endblock %}
