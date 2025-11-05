@@ -91,17 +91,8 @@ DATABASE_USER = os.environ.get("DB_USER")
 DATABASE_PASSWORD = os.environ.get("DB_PASSWORD")
 DATABASE_PORT = os.environ.get("DB_PORT") or "3306"
 
-# データベース接続設定
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "python_apps_django_db",
-#         "USER": "root",
-#         "PASSWORD": "amaneyuu0515",
-#         "HOST": "127.0.0.1",
-#         "PORT": "3306",
-#     }
-# }
+#
+
 
 # データベース接続設定
 DATABASES = {
