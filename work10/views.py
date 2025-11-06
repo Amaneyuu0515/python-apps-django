@@ -1,7 +1,9 @@
+# work10/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Todo
+# from .models import Todo ← ここを削除！
+from work09.models import Todo  # ← ★ work09 からTodoをインポート！
 
 
 def todo_list(request):

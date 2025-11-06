@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+
 import os
 
 from pathlib import Path
@@ -30,8 +31,12 @@ SECRET_KEY = "django-insecure-e9wv^gs(e3(!v9ybj9@o9gru3hbv&us6wm10^an=+h-tvmm4a3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED HOSTS CSRF_TRUSTED_ORIGINS を設定
+# deploy setting for Railway
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = (os.environ.get("ALLOWED_HOSTS") or "").split(",")  # deploy for Railway
+CSRF_TRUSTED_ORIGINS = (os.environ.get("CSRF_TRUSTED_ORIGINS") or "").split(",")
 
 # Application definition
 
@@ -52,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # ここを追加
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -116,21 +122,17 @@ AUTH_PASSWORD_VALIDATORS = [
         "UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation." "MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation." "CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation."
-        "NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation." "NumericPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-        'MinimumLengthValidator',
-        'OPTIONS': {'min_length': 4},
+        "NAME": "django.contrib.auth.password_validation." "MinimumLengthValidator",
+        "OPTIONS": {"min_length": 4},
     },
 ]
 
@@ -150,11 +152,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# WhiteNoise configuration for serving static files in production
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-LOGIN_REDIRECT_URL = '/work10/'      # ログイン後にTODO一覧へリダイレクト
-LOGOUT_REDIRECT_URL = '/work10/'     # ログアウト後もTODO一覧へ戻す
+LOGIN_REDIRECT_URL = "/work10/"  # ログイン後にTODO一覧へリダイレクト
+LOGOUT_REDIRECT_URL = "/work10/"  # ログアウト後もTODO一覧へ戻す
+
+# setup basicauth middleware
+if os.environ.get("ENABLE_BASIC_AUTH") or "false" == "true":
+    MIDDLEWARE.append("basicauth.middleware.BasicAuthMiddleware")
+    BASICAUTH_USERS = {
+        os.environ.get("BASIC_AUTH_USERNAME"): os.environ.get("BASIC_AUTH_PASSWORD"),
+    }
